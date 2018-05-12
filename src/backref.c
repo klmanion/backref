@@ -8,6 +8,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
+#include <err.h>
 
 char*
 backref_to_str(
@@ -34,19 +35,19 @@ make_backref_str(
 	br.p = p;
 	br.n = n;
 
-	return backref_to_str(br);
+	return backref_to_str(&br);
 }
 
 char*
 add_backref_str(
 	char *s,
-	int *dex,
+	size_t *dexptr,
 	const char *const brs)
 {
 	int sz = strlen(brs);
 
-	strcpy(s[dex], brs, sz);
-	*k += sz;
+	memcpy(&s[*dexptr], brs, sz);
+	*dexptr += sz;
 
 	return s;
 }
@@ -54,13 +55,13 @@ add_backref_str(
 char*
 add_backref(
 	char *s,
-	int *dex,
+	size_t *dexptr,
 	const backref_t *const br)
 {
 	char *brs,*r;
 
 	brs = backref_to_str(br);
-	r = add_backref_str(s, dex, brs);
+	r = add_backref_str(s, dexptr, brs);
 	free(brs);
 
 	return r;
@@ -69,7 +70,7 @@ add_backref(
 char*
 add_backref_raw(
 	char *s,
-	int *dex,
+	size_t *dexptr,
 	const int p,
 	const int n)
 {
@@ -78,7 +79,7 @@ add_backref_raw(
 	br.p = p;
 	br.n = n;
 
-	return add_backref(s, dex, br);
+	return add_backref(s, dexptr, &br);
 }
 
 /* vim: set ts=4 sw=4 noexpandtab tw=79: */

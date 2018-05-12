@@ -23,8 +23,12 @@ match_pattern(
 	const char *const restrict	pattern,
 	size_t						nm)
 {
-	int offsets[1024];
+	int *offsets;
 	size_t dex;
+
+	offsets = (int *)malloc(sizeof(int)*1024);
+	if (!offsets)
+		errx(1,"malloc error, %s:%d", __FILE__, __LINE__);
 
 	dex = 0;
 	offsets[dex] = -1;
@@ -83,13 +87,12 @@ encode(
 			int *ptr,*offset;
 			int n,nM;
 			char *s;
+			lookup_t *lookup_table = NULL;
 			//check if the pattern starting at in[j] reoccurs previously
 			//first, in the lookup table
 			br = lookup_pattern(lookup_table, in, j, nm);
 			if (br) {
-				s = backref_to_str(br);
-				add_backref(enc[i], &k, s);
-				free(s);
+				add_backref(enc[i], &k, br);
 				continue;
 			}
 			//second, in the encoded string
@@ -106,7 +109,8 @@ encode(
 					offset = ptr;
 				}
 			}
-			add_backref_raw(enc[i], &k, j-offset, nM);
+			add_backref_raw(enc[i], &k, j-*offset, nM);
+			free(offsets);
 		}
 		printf("%s", enc[i]);
 	}

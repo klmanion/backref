@@ -18,9 +18,9 @@ __BEGIN_DECLS
 char*	backref_to_str __P((const backref_t *const));
 char*	make_backref_str __P((const int,const int));
 
-char*	add_backref_str __P((char *,int *,const char *const));
-char*	add_backref __P((char *,int *,const backref_t *const));
-char*	add_backref_raw __P((char *,int *,const int,const int));
+char*	add_backref_str __P((char *,size_t *,const char *const));
+char*	add_backref __P((char *,size_t *,const backref_t *const));
+char*	add_backref_raw __P((char *,size_t *,const int,const int));
 __END_DECLS
 
 #endif /* !__BACK_REF_H__ */

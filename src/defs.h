@@ -7,6 +7,7 @@
 #define __DEFS_H__
 
 #include "backref.h"
+#include "lookup.h"
 
 #define BUF_SZ 4096
 

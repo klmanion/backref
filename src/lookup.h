@@ -9,6 +9,11 @@
 #include <stdlib.h>
 #include "defs.h"
 
+typedef
+struct _lookup {
+	void *foo;
+} lookup_t;
+
 __BEGIN_DECLS
 backref_t*	lookup_pattern __P((const lookup_t *const,const char *const,
 									const size_t,const size_t));
