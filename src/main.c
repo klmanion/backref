@@ -10,10 +10,6 @@
 #include <config.h>
 #endif
 
-#ifndef VERSION
-#error "config error"
-#endif
-
 int
 main(
 	int argc,
