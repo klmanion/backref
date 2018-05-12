@@ -20,6 +20,7 @@ char*	make_backref_str __P((const int,const int));
 
 char*	add_backref_str __P((char *,int *,const char *const));
 char*	add_backref __P((char *,int *,const backref_t *const));
+char*	add_backref_raw __P((char *,int *,const int,const int));
 __END_DECLS
 
 #endif /* !__BACK_REF_H__ */

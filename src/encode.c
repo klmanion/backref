@@ -15,6 +15,35 @@
 extern int	v_flg;
 extern int	s_flg;
 
+
+int*
+match_pattern(
+	const char **const restrict	enc,
+	const size_t				enc_sz,
+	const char *const restrict	pattern,
+	size_t						nm)
+{
+	int offsets[1024];
+	size_t dex;
+
+	dex = 0;
+	offsets[dex] = -1;
+
+	//for each line of the encoding
+	for (size_t i=0,k=0; i<enc_sz; ++i) {
+		for (size_t j=0,sz=strlen(enc[i]); j<sz; ++j,++k) {
+			if (strncmp(&enc[i][j], pattern, nm)==0) {
+				offsets[dex++] = k;
+				offsets[dex] = -1;
+			}
+		}
+	}
+
+	return offsets;
+}
+	
+
+
 void
 encode(
 	const int nm,
@@ -77,10 +106,9 @@ encode(
 					offset = ptr;
 				}
 			}
-			s = make_backref_str(j-offset, nM);
-			add_backref_str(enc[i], &k, s);
-			free(s);
+			add_backref_raw(enc[i], &k, j-offset, nM);
 		}
+		printf("%s", enc[i]);
 	}
 }
 

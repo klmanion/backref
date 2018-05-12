@@ -53,8 +53,8 @@ add_backref_str(
 
 char*
 add_backref(
-	char *s;
-	int *dex;
+	char *s,
+	int *dex,
 	const backref_t *const br)
 {
 	char *brs,*r;
@@ -66,5 +66,19 @@ add_backref(
 	return r;
 }
 
+char*
+add_backref_raw(
+	char *s,
+	int *dex,
+	const int p,
+	const int n)
+{
+	backref_t br;
+
+	br.p = p;
+	br.n = n;
+
+	return add_backref(s, dex, br);
+}
 
 /* vim: set ts=4 sw=4 noexpandtab tw=79: */
