@@ -1,4 +1,4 @@
 ## src/Makefile.am
 
 bin_PROGRAMS = backref
-backref_SOURCES = main.c encode.c decode.c
+backref_SOURCES = main.c encode.c decode.c backref.c

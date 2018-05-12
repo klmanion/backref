@@ -2,6 +2,7 @@
 
 *.swp
 .deps
+input0.txt
 
 # Prerequisites
 *.d

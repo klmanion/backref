@@ -10,7 +10,7 @@
 #include <config.h>
 
 __BEGIN_DECLS
-void	encode __P((int,const char *));
+void	encode __P((const int,const char *const));
 __END_DECLS
 
 #endif /* !__ENCODE_H__ */
