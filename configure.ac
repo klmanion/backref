@@ -17,6 +17,7 @@ AC_FUNC_MALLOC
 AC_CONFIG_FILES([
  Makefile
  src/Makefile
+ share/man/man1/Makefile
 ])
 
 AC_OUTPUT
