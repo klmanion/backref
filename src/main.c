@@ -66,10 +66,12 @@ main(
 	char flg;
 	const char *const basename = argv[0];
 	int mn;
-	char sep[80];
+	char *sep;
 
 #ifdef DEBUG
 	puts("debug mode");
+#else
+	puts("release mode");
 #endif
 
 	opterr = 0;
@@ -140,6 +142,7 @@ main(
 		usage(basename);
 	}
 
+	/*
 	if (e_flg)
 		encode(mn, sep);
 	else if (d_flg)
@@ -148,6 +151,7 @@ main(
 		warnx("either the e or d option must be specified");
 		usage(basename);
 	}
+	*/
 
 	return EXIT_SUCCESS;
 }
