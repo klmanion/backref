@@ -6,12 +6,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#ifndef VERSION
+#error "config error"
+#endif
+
 int
 main(
 	int argc,
 	char *const argv[])
 {
-	puts("foo");
+	printf("version: %s\n", VERSION);
 
 	return EXIT_SUCCESS;
 }
