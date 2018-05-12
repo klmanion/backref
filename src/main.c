@@ -70,13 +70,12 @@ main(
 
 #ifdef DEBUG
 	puts("debug mode");
-#else
-	puts("release mode");
 #endif
 
 	opterr = 0;
 
-	e_flg = d_flg = s_flg = v_flg = 0;
+	d_flg = s_flg = v_flg = 0;
+	e_flg = 1;
 
 	mn = 4;
 	sep = "\0";
@@ -142,7 +141,6 @@ main(
 		usage(basename);
 	}
 
-	/*
 	if (e_flg)
 		encode(mn, sep);
 	else if (d_flg)
@@ -151,7 +149,6 @@ main(
 		warnx("either the e or d option must be specified");
 		usage(basename);
 	}
-	*/
 
 	return EXIT_SUCCESS;
 }
