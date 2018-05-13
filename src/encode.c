@@ -9,17 +9,18 @@
 #include <limits.h>
 #include <err.h>
 #include <string.h>
+#include <stdint.h>
 #include "defs.h"
 
 
-extern int	v_flg;
-extern int	s_flg;
+extern	uint8_t	v_flg;
+extern	uint8_t	s_flg;
 
 
 int*
 match_pattern(
 	const char **const restrict	enc,
-	const size_t				enc_sz,
+	const size_t				enc_curi,
 	const char *const restrict	pattern,
 	size_t						nm)
 {
@@ -34,16 +35,16 @@ match_pattern(
 	offsets[dex] = -1;
 
 	//for each line of the encoding
-	for (size_t i=0,k=0; i<enc_sz; ++i) {
+	for (size_t i=0,k=0; i<=enc_curi; ++i) {
 		for (size_t j=0,sz=strlen(enc[i]); j<sz; ++j,++k) {
 			if (strncmp(&enc[i][j], pattern, nm)==0) {
-				offsets[dex++] = k;
-				offsets[dex] = -1;
+				offsets[dex] = k;
+				offsets[++dex] = -1;
 			}
 		}
 	}
 
-	return offsets;
+	return offsets[0] == -1 ? NULL : offsets;
 }
 	
 
@@ -54,6 +55,7 @@ encode(
 	const char *const sep)
 {
 	char *in,**enc;
+	lookup_t *lookup_table = NULL;
 	char fmt[80];
 
 	enc = (char **)malloc(sizeof(char *)*BUF_SZ);
@@ -80,37 +82,41 @@ encode(
 		enc[i+1] = NULL;
 
 		memcpy(enc[i], in, nm);
+		enc[nm] = '\0';
+		lookup_table = lookup_init(&lookup_table);
 		for (size_t j=nm,k=nm,sz=strlen(in); j<sz; ++j,++k)
 		{
 			backref_t *br;
 			int *offsets;
 			int *ptr,*offset;
-			int n,nM;
+			int ni,n;
 			char *s;
-			lookup_t *lookup_table = NULL;
 			//check if the pattern starting at in[j] reoccurs previously
 			//first, in the lookup table
-			br = lookup_pattern(lookup_table, in, j, nm);
-			if (br) {
-				add_backref(enc[i], &k, br);
-				continue;
-			}
+			offsets = lookup_pattern(lookup_table, in, j, nm);
 			//second, in the encoded string
-			offsets = match_pattern(enc, i, &in[j], nm);
+			if (!offsets)
+				offsets = match_pattern(enc, i, &in[j], nm);
 
-			//find the longest pattern matched
-			ptr = offsets;
-			nM = -1;
-			while (*(++ptr) != -1)
-			{
-				for (n = nm; strncmp(&in[j], enc[*ptr], n)==0; ++n) { }
-				if (n >= nM) {
-					nM = n;
-					offset = ptr;
+			if (offsets) {
+				//find the longest pattern matched
+				ptr = offsets;
+				n = -1;
+				while (*(++ptr) != -1)
+				{
+					for (ni = nm; strncmp(&in[j], enc[*ptr], ni)==0; ++ni) { }
+					if (ni >= n) {
+						n = ni;
+						offset = ptr;
+					}
 				}
+				br = make_backref(j-*offset, n);
+				add_backref(enc[i], &k, br, lookup_table);
+				free(offsets);
+			} else {
+				enc[i][k] = in[j];
+				enc[i][k+1] = '\0';
 			}
-			add_backref_raw(enc[i], &k, j-*offset, nM);
-			free(offsets);
 		}
 		printf("%s", enc[i]);
 	}

@@ -10,6 +10,23 @@
 #include <string.h>
 #include <err.h>
 
+backref_t*
+make_backref(
+	const int p,
+	const int n)
+{
+	backref_t *br;
+
+	br = (backref_t *)malloc(backref_sz);
+	if (!br)
+		errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
+
+	br->p = p;
+	br->n = n;
+
+	return br;
+}
+
 char*
 backref_to_str(
 	const backref_t *const br)
@@ -39,47 +56,26 @@ make_backref_str(
 }
 
 char*
-add_backref_str(
-	char *s,
-	size_t *dexptr,
-	const char *const brs)
-{
-	int sz = strlen(brs);
-
-	memcpy(&s[*dexptr], brs, sz);
-	*dexptr += sz;
-
-	return s;
-}
-
-char*
 add_backref(
 	char *s,
 	size_t *dexptr,
-	const backref_t *const br)
+	const backref_t *const br,
+	const lookup_t *l)
 {
-	char *brs,*r;
+	char *brs;
+	size_t sz;
 
 	brs = backref_to_str(br);
-	r = add_backref_str(s, dexptr, brs);
+	sz = strlen(brs);
+
+	memcpy(&s[*dexptr], brs, sz);
 	free(brs);
 
-	return r;
-}
+	lookup_add_backref(l, br, *dexptr);
 
-char*
-add_backref_raw(
-	char *s,
-	size_t *dexptr,
-	const int p,
-	const int n)
-{
-	backref_t br;
+	*dexptr += sz;
 
-	br.p = p;
-	br.n = n;
-
-	return add_backref(s, dexptr, &br);
+	return s;
 }
 
 /* vim: set ts=4 sw=4 noexpandtab tw=79: */
