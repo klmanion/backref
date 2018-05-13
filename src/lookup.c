@@ -27,6 +27,17 @@ lookup_init(
 	return (*p = l);
 }
 
+lookup_t*
+lookup_free(
+	lookup_t *l)
+{
+	if (l) {
+		free(l->entry_lst);
+		free(l);
+	}
+	return l = NULL;
+}
+
 bool
 lookup_empty(
 	const lookup_t *const l)

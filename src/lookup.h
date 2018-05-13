@@ -28,6 +28,8 @@ struct _lookup {
 
 __BEGIN_DECLS
 lookup_t*	lookup_init	__P((lookup_t **));
+lookup_t*	lookup_free __P((lookup_t *));
+
 bool		lookup_empty __P((const lookup_t *const));
 
 void		lookup_add_backref __P((const lookup_t *,const backref_t *const,

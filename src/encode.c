@@ -19,7 +19,7 @@ extern	uint8_t	s_flg;
 
 int*
 match_pattern(
-	const char **const restrict	enc,
+	char **const restrict		enc,
 	const size_t				enc_curi,
 	const char *const restrict	pattern,
 	size_t						nm)
@@ -91,6 +91,7 @@ encode(
 			int *ptr,*offset;
 			int ni,n;
 			char *s;
+			char *pattern;
 			//check if the pattern starting at in[j] reoccurs previously
 			//first, in the lookup table
 			offsets = lookup_pattern(lookup_table, in, j, nm);
@@ -119,8 +120,10 @@ encode(
 				enc[i][k+1] = '\0';
 			}
 		}
+		lookup_table = lookup_free(lookup_table);
 		printf("%s", enc[i]);
 	}
+	putchar('\n');
 }
 
 /* vim: set ts=4 sw=4 noexpandtab tw=79: */
