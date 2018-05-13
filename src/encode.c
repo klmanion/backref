@@ -82,7 +82,7 @@ encode(
 		enc[i+1] = NULL;
 
 		memcpy(enc[i], in, nm);
-		enc[nm] = '\0';
+		enc[i][nm] = '\0';
 		lookup_table = lookup_init(&lookup_table);
 		for (size_t j=nm,k=nm,sz=strlen(in); j<sz; ++j,++k)
 		{

@@ -10,6 +10,13 @@
 #include <stdbool.h>
 #include "defs.h"
 
+/* TODO */
+typedef
+struct _entry {
+	backref_t	*br;
+} entry_t
+#define entry_sz sizeof(entry_t)
+
 typedef
 struct _lookup {
 	entry_t	*entry_lst;
