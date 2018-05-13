@@ -59,8 +59,7 @@ char*
 add_backref(
 	char *s,
 	size_t *dexptr,
-	const backref_t *const br,
-	const lookup_t *l)
+	const backref_t *const br)
 {
 	char *brs;
 	size_t sz;
@@ -69,11 +68,9 @@ add_backref(
 	sz = strlen(brs);
 
 	memcpy(&s[*dexptr], brs, sz);
-	free(brs);
-
-	lookup_add_backref(l, br, *dexptr);
-
 	*dexptr += sz;
+
+	free(brs);
 
 	return s;
 }

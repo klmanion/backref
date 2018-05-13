@@ -7,7 +7,6 @@
 #define __BACKREF_H__
 
 #include <stdlib.h>
-#include "lookup.h"
 
 typedef
 struct _backref {
@@ -21,7 +20,7 @@ backref_t*	make_backref __P((const int,const int));
 char*	backref_to_str __P((const backref_t *const));
 char*	make_backref_str __P((const int,const int));
 
-char*	add_backref __P((char *,size_t *,const backref_t *const,const lookup_t *));
+char*	add_backref __P((char *,size_t *,const backref_t *const));
 __END_DECLS
 
 #endif /* !__BACK_REF_H__ */

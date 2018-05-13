@@ -111,7 +111,8 @@ encode(
 					}
 				}
 				br = make_backref(j-*offset, n);
-				add_backref(enc[i], &k, br, lookup_table);
+				add_backref(enc[i], &k, br);
+				lookup_add_backref(lookup_table, br, 0); //FIXME
 				free(offsets);
 			} else {
 				enc[i][k] = in[j];

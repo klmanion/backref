@@ -8,13 +8,14 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include "backref.h"
 #include "defs.h"
 
 /* TODO */
 typedef
 struct _entry {
 	backref_t	*br;
-} entry_t
+} entry_t;
 #define entry_sz sizeof(entry_t)
 
 typedef
@@ -32,7 +33,7 @@ bool		lookup_empty __P((const lookup_t *const));
 void		lookup_add_backref __P((const lookup_t *,const backref_t *const,
 										const size_t));
 
-backref_t*	lookup_pattern __P((const lookup_t *const,const char *const,
+int*		lookup_pattern __P((const lookup_t *const,const char *const,
 									const size_t,const size_t));
 __END_DECLS
 

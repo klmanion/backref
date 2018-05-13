@@ -11,18 +11,20 @@ lookup_t*
 lookup_init(
 	lookup_t **p)
 {
-	*p = (lookup_t *)malloc(lookup_sz);
-	if (!*p)
+	lookup_t *l;
+
+	l = (lookup_t *)malloc(lookup_sz);
+	if (!l)
 		errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
 
-	*p->entry_lst = (entry_t *)malloc(entry_sz*BUF_SZ);
-	if (!*p->entry_lst)
+	l->entry_lst = (entry_t *)malloc(entry_sz*BUF_SZ);
+	if (!l->entry_lst)
 		errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
 
-	*p->head = NULL;
-	*p->tail = NULL;
+	l->head = NULL;
+	l->tail = NULL;
 
-	return *p;
+	return (*p = l);
 }
 
 bool
@@ -32,7 +34,7 @@ lookup_empty(
 	return l->head == NULL;
 }
 
-backref_t*
+int*
 lookup_pattern(
 	const lookup_t *const	tab,
 	const char *const		s,
