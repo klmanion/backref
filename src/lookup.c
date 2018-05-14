@@ -32,6 +32,9 @@ lookup_free(
 	lookup_t *l)
 {
 	if (l) {
+		for (entry_t *e=l->head; e; ++e) {
+			free(e->br);
+		}
 		free(l->entry_lst);
 		free(l);
 	}

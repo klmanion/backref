@@ -15,6 +15,8 @@
 typedef
 struct _entry {
 	backref_t	*br;
+	char		*pattern;
+	size_t		dex;
 } entry_t;
 #define entry_sz sizeof(entry_t)
 
