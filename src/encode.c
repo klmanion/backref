@@ -14,7 +14,6 @@
 
 
 extern	uint8_t	v_flg;
-extern	uint8_t	s_flg;
 	
 void
 encode(
