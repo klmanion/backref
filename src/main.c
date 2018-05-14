@@ -51,7 +51,6 @@ version(
 
 static	uint8_t	e_flg;
 static	uint8_t	d_flg;
-		uint8_t	s_flg;
 		uint8_t	v_flg;
 
 int
@@ -74,7 +73,7 @@ main(
 
 	opterr = 0;
 
-	d_flg = s_flg = v_flg = 0;
+	d_flg = v_flg = 0;
 	e_flg = 1;
 
 	mn = 4;
@@ -101,7 +100,6 @@ main(
 			break;;
 
 		case 's':
-			s_flg = 1;
 			if (optarg)
 				sep = optarg;
 			else

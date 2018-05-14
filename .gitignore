@@ -2,6 +2,7 @@
 
 *.swp
 .deps
+input*
 
 # Prerequisites
 *.d
