@@ -47,7 +47,7 @@ encode(
 #endif
 
 			//look for beginning of pattern
-			for (int j=i-1; j>0; --j)
+			for (int j=i-1; j>=0; --j)
 			{
 				if (in[j] == pattern[0]) {
 					p = i-1 - j;
