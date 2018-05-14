@@ -12,15 +12,18 @@ typedef
 struct _backref {
 	int	p;
 	int	n;
+	char *pattern;
 } backref_t;
 #define backref_sz sizeof(backref_t)
 
 __BEGIN_DECLS
-backref_t*	make_backref __P((const int,const int));
+backref_t*	backref_make __P((const int,const int,char *));
+backref_t*	backref_free __P((backref_t *));
+
 char*	backref_to_str __P((const backref_t *const));
 char*	make_backref_str __P((const int,const int));
 
-char*	add_backref __P((char *,size_t *,const backref_t *const));
+size_t	add_backref __P((char *const,const backref_t *const));
 __END_DECLS
 
 #endif /* !__BACK_REF_H__ */

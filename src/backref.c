@@ -11,9 +11,10 @@
 #include <err.h>
 
 backref_t*
-make_backref(
+backref_make(
 	const int p,
-	const int n)
+	const int n,
+	char *pattern)
 {
 	backref_t *br;
 
@@ -23,8 +24,19 @@ make_backref(
 
 	br->p = p;
 	br->n = n;
+	br->pattern = pattern;
 
 	return br;
+}
+
+backref_t*
+backref_free(
+	backref_t *br)
+{
+	free(br->pattern);
+	free(br);
+
+	return br = NULL;
 }
 
 char*
@@ -37,7 +49,7 @@ backref_to_str(
 	if (!s)
 		errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
 
-	snprintf(s, 79, "<%d,%d>", br->p, br->n);
+	snprintf(s, 79, "<%d,%d>%c", br->p, br->n, '\0');
 
 	return s;
 }
@@ -55,10 +67,9 @@ make_backref_str(
 	return backref_to_str(&br);
 }
 
-char*
+size_t
 add_backref(
-	char *s,
-	size_t *dexptr,
+	char *const s,
 	const backref_t *const br)
 {
 	char *brs;
@@ -67,12 +78,11 @@ add_backref(
 	brs = backref_to_str(br);
 	sz = strlen(brs);
 
-	memcpy(&s[*dexptr], brs, sz);
-	*dexptr += sz;
+	memcpy(strchr(s, '\0'), brs, sz+1);
 
 	free(brs);
 
-	return s;
+	return sz;
 }
 
 /* vim: set ts=4 sw=4 noexpandtab tw=79: */
