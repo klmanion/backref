@@ -42,9 +42,6 @@ encode(
 			size_t offset;
 
 			pattern = &in[i];
-#ifdef DEBUG
-			printf("pattern[0]: %c\n", pattern[0]);
-#endif
 
 			//look for beginning of pattern
 			for (int j=i-1; j>=0; --j)
@@ -74,9 +71,6 @@ encode(
 				enc[k] = in[i];
 				enc[++k] = '\0';
 			}
-#ifdef DEBUG
-			printf("->%s\n", enc);
-#endif
 		}
 		printf("%s", enc);
 	}
