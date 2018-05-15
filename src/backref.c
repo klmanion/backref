@@ -54,6 +54,17 @@ backref_to_str(
 	return s;
 }
 
+backref_t*
+str_to_backref(
+	char *const brs)
+{
+	int p,n;
+
+	sscanf(brs, "<%d,%d>", &p, &n);
+
+	return backref_make(p, n, NULL);
+}
+
 char*
 make_backref_str(
 	const int p,

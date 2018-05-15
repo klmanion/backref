@@ -31,7 +31,7 @@ encode(
 		scanf(fmt, in);
 
 #ifdef DEBUG
-		printf("reading in: %s\n", in);
+		warnx("reading in: %s", in);
 #endif
 		for (size_t i=0,k=0,sz=strlen(in); i<sz; ++i)
 		{

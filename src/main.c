@@ -67,10 +67,6 @@ main(
 	int mn;
 	char *sep;
 
-#ifdef DEBUG
-	puts("debug mode");
-#endif
-
 	opterr = 0;
 
 	d_flg = v_flg = 0;
