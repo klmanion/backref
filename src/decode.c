@@ -15,7 +15,7 @@
 
 backref_t*
 read_backref(
-	char *const s,
+	char *const s,	//encoded string
 	size_t dex)
 {
 	char *c;
@@ -41,7 +41,7 @@ read_backref(
 
 char*
 expand_backref(
-	char *const s,
+	char *const s,	//decoded string
 	size_t dex,
 	backref_t *br)
 {
@@ -56,6 +56,10 @@ expand_backref(
 
 	memcpy(exp, c0, br->n);
 	exp[br->n] = '\0';
+
+	if (strchr(exp, '<') != NULL) {
+		puts("backref");
+	}
 
 	return exp;
 }
