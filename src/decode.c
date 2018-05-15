@@ -39,6 +39,7 @@ read_backref(
 	return br;
 }
 
+/* TODO: add self-refferential backreferencing */
 char*
 expand_backref(
 	char *const s,	//decoded string
@@ -56,10 +57,6 @@ expand_backref(
 
 	memcpy(exp, c0, br->n);
 	exp[br->n] = '\0';
-
-	if (strchr(exp, '<') != NULL) {
-		puts("backref");
-	}
 
 	return exp;
 }
