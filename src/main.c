@@ -25,7 +25,7 @@ const struct option longopts[] = {
 	{ "encode",		no_argument,		NULL,	'e' },
 	{ "decode",		no_argument,		NULL,	'd' },
 	{ "min-width",	required_argument,	NULL,	'm' },
-	{ "separate",	optional_argument,	NULL,	's' },
+	{ "separator",	optional_argument,	NULL,	's' },
 	{ "help",		no_argument,		NULL,	'h' },
 	{ "verbose",	no_argument,		NULL,	'v' },
 	{ "version",	no_argument,		NULL,	'V' },
@@ -37,7 +37,7 @@ usage(
 	const char *const basename)
 {
 	fprintf(stderr, "usage:\n"
-		"\t%s [-e | -d] [-s]\n", basename);
+		"\t%s [-e | -d] [-m min_width] [-s seperator]\n", basename);
 	exit(EX_USAGE);
 }
 
@@ -88,18 +88,12 @@ main(
 			break;;
 
 		case 'm':
-			mn = atoi(optarg);
-			if (mn <= 0) {
-				warnx("minimum width must be positive");
-				usage(basename);;
-			}
+			if ((mn=atoi(optarg)) <= 0)
+				warnx("minimum width must be positive"),usage(basename);;
 			break;;
 
 		case 's':
-			if (optarg)
-				sep = optarg;
-			else
-				sep = "\n";
+			sep = optarg ? optarg : "\n";
 			break;;
 
 		case 'h':

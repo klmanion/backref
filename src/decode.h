@@ -7,7 +7,6 @@
 #define __DECODE_H__
 
 #include <stdlib.h>
-#include <config.h>
 
 __BEGIN_DECLS
 void	decode __P((void));

@@ -15,7 +15,7 @@
 #include <assert.h>
 #include "defs.h"
 
-backref_t*
+backref_t* __pure
 read_backref(
 	char *const s,	//encoded string
 	size_t dex)
@@ -41,13 +41,13 @@ read_backref(
 	return br;
 }
 
-char*
+char* __pure
 expand_backref(
 	char *const s,	//decoded string
 	size_t dex,
 	backref_t *br)
 {
-	char *c0,*c;
+	char *c0;
 	char *exp;
 	size_t sz;
 
@@ -64,7 +64,7 @@ expand_backref(
 	/* self-referential back-reference */
 	for (ptrdiff_t d=br->n - br->p - 1; d > 0; d-=sz) {
 		sz = fmin(strlen(exp), d);
-		*(char *)(memmove(strchr(exp, '\0'), exp, sz)+sz) = '\0';
+		*((char *)memmove(strchr(exp, '\0'), exp, sz)+sz) = '\0';
 	}
 
 	return exp;

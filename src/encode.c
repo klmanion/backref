@@ -12,12 +12,11 @@
 #include <stdint.h>
 #include "defs.h"
 
-
 extern	uint8_t	v_flg;
 	
 void
 encode(
-	const int nm,
+	const size_t nm,
 	const char *const sep)
 {
 	char in[BUF_SZ];
@@ -36,9 +35,9 @@ encode(
 		for (size_t i=0,k=0,sz=strlen(in); i<sz; ++i)
 		{
 			char *pattern,*match;
-			int p,n;
+			ptrdiff_t p;
+			size_t n,offset;
 			backref_t *br = NULL;
-			size_t offset;
 
 			pattern = &in[i];
 
