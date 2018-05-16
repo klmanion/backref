@@ -10,11 +10,11 @@
 #include <string.h>
 #include <err.h>
 
-backref_t*
+backref_t* __pure2
 backref_make(
-	const int p,
-	const int n,
-	char *pattern)
+	const ptrdiff_t	p,
+	const size_t	n,
+	char 			*const pattern)
 {
 	backref_t *br;
 
@@ -29,17 +29,20 @@ backref_make(
 	return br;
 }
 
-backref_t*
+backref_t* __pure
 backref_free(
 	backref_t *br)
 {
-	free(br->pattern);
-	free(br);
+	if (br) {
+		if (br->pattern)
+			free(br->pattern);
+		free(br);
+	}
 
 	return br = NULL;
 }
 
-char*
+char* __pure
 backref_to_str(
 	const backref_t *const br)
 {
@@ -49,26 +52,27 @@ backref_to_str(
 	if (!s)
 		errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
 
-	snprintf(s, 79, "<%d,%d>%c", br->p, br->n, '\0');
+	snprintf(s, 79, "<%td,%zu>", br->p, br->n);
 
 	return s;
 }
 
-backref_t*
+backref_t* __pure
 str_to_backref(
 	char *const brs)
 {
-	int p,n;
+	ptrdiff_t p;
+	size_t n;
 
-	sscanf(brs, "<%d,%d>", &p, &n);
+	sscanf(brs, "<%td,%zu>", &p, &n);
 
 	return backref_make(p, n, NULL);
 }
 
-char*
+char* __pure2
 make_backref_str(
-	const int p,
-	const int n)
+	const ptrdiff_t	p,
+	const size_t	n)
 {
 	backref_t br;
 
@@ -78,7 +82,7 @@ make_backref_str(
 	return backref_to_str(&br);
 }
 
-size_t
+size_t __pure
 add_backref(
 	char *const s,
 	const backref_t *const br)
