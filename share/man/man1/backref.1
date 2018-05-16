@@ -1,0 +1,56 @@
+\" backref.1 manpage
+.Dd 12 May 2018
+.Dt BACKREF 1
+.Os UNIX
+.Sh NAME
+.Nm backref
+.Nd compress a file by replacing repeated characters with a back reference
+.Sh SYNOPSIS
+.Sy backref
+.Op Fl e | Fl d
+.Op Fl m Ar min_width
+.YS
+.Sh DESCRIPTION
+.Nm
+can preform and undo the operation on a string,
+where redundant text is replaced by a back-reference to its prior occurence in the style of <p,n>,
+where the position of the beginning of the pattern is indicated by an integer p,
+which is how many indices prior to the last printing character the pattern starts,
+and the length is an integer n.
+.Sh OPTIONS
+.Bl -hang
+.It Sy Fl e , Fl Fl encode ,
+Encode the string provided by stdin with back-references.
+.It Sy Fl d , Fl Fl decode ,
+Decode the string provided by stdin,
+which has been encoded with back-references by this program.
+.It Sy Fl m , Fl Fl min-width ,
+Specify the minimum width each back-reference must be.
+(The default is four.)
+.It Sy Fl h , Fl Fl help ,
+Print out abreviated usage information.
+.It Sy Fl v , Fl Fl verbose ,
+Increment the verbosity level,
+i.e. \-vv has a different effect than \-v.
+.It Sy Fl V, Fl Fl version ,
+Print out the version information.
+.El
+.Sh EXAMPLES
+Simplest encoding of a file;
+assumes the default minimum length for back-references:
+.D1 backref -e <input.txt >encoded.txt
+Simplest decoding of a file:
+.D1 backref -d <input.txt >decoded.txt
+.Sh BUGS
+.Sh HISTORY
+The idea for
+.Nm
+comes from Berkeley's fall 2001 programming contest, problem #2.
+.Sh AUTHOR
+backref was created by
+.An Kurt L. Manion
+on 12 May 2018.
+.Sh CONTACT
+.Aq klmanion@gmail.com .
+.Sh VERSION
+version 1.0.1 \(em 16 May 2018.
