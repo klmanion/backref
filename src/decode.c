@@ -11,6 +11,8 @@
 #include <stddef.h>
 #include <err.h>
 #include <math.h>
+#define NDEBUG /* turn off assertions */
+#include <assert.h>
 #include "defs.h"
 
 backref_t*
@@ -39,15 +41,15 @@ read_backref(
 	return br;
 }
 
-/* TODO: add self-refferential backreferencing */
 char*
 expand_backref(
 	char *const s,	//decoded string
 	size_t dex,
 	backref_t *br)
 {
-	char *c0;
+	char *c0,*c;
 	char *exp;
+	size_t sz;
 
 	c0 = &s[(dex-1)-br->p]; //first index of pattern
 
@@ -55,8 +57,15 @@ expand_backref(
 	if (!exp)
 		errx(1,"malloc failure, %s:%d", __FILE__, __LINE__);
 
+	assert(s[dex] == '\0');
 	memcpy(exp, c0, br->n);
 	exp[br->n] = '\0';
+
+	/* self-referential back-reference */
+	for (ptrdiff_t d=br->n - br->p - 1; d > 0; d-=sz) {
+		sz = fmin(strlen(exp), d);
+		*(char *)(memmove(strchr(exp, '\0'), exp, sz)+sz) = '\0';
+	}
 
 	return exp;
 }
@@ -85,8 +94,8 @@ decode(void)
 				free(br);
 				exp_sz = strlen(exp);
 				memcpy(&dec[j], exp, exp_sz);
-				dec[j+=exp_sz] = '\0';
 				free(exp);
+				dec[j+=exp_sz] = '\0';
 				i += strchr(&enc[i], '>')-&enc[i];
 			} else {
 				dec[j] = enc[i];
