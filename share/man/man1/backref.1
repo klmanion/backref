@@ -6,10 +6,9 @@
 .Nm backref
 .Nd compress a file by replacing repeated characters with a back reference
 .Sh SYNOPSIS
-.Sy backref
+.Nm
 .Op Fl e | Fl d
 .Op Fl m Ar min_width
-.YS
 .Sh DESCRIPTION
 .Nm
 can preform and undo the operation on a string,
@@ -27,11 +26,15 @@ which has been encoded with back-references by this program.
 .It Sy Fl m , Fl Fl min-width ,
 Specify the minimum width each back-reference must be.
 (The default is four.)
+.It Sy Fl s , Fl Fl separator ,
+Specify the character which separates lines of input.
+By default it is NUL.
+Effect of the line seperations is currently unimplemented.
 .It Sy Fl h , Fl Fl help ,
 Print out abreviated usage information.
 .It Sy Fl v , Fl Fl verbose ,
 Increment the verbosity level,
-i.e. \-vv has a different effect than \-v.
+i.e., \-vv has a different effect than \-v.
 .It Sy Fl V, Fl Fl version ,
 Print out the version information.
 .El
@@ -53,4 +56,4 @@ on 12 May 2018.
 .Sh CONTACT
 .Aq klmanion@gmail.com .
 .Sh VERSION
-version 1.0.1 \(em 16 May 2018.
+version 1.1.0 \(em 16 May 2018.
