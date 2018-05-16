@@ -20,7 +20,9 @@ __BEGIN_DECLS
 backref_t*	backref_make __P((const int,const int,char *));
 backref_t*	backref_free __P((backref_t *));
 
-char*	backref_to_str __P((const backref_t *const));
+char*		backref_to_str __P((const backref_t *const));
+backref_t*	str_to_backref __P((char *const));
+
 char*	make_backref_str __P((const int,const int));
 
 size_t	add_backref __P((char *const,const backref_t *const));
