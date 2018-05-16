@@ -91,7 +91,7 @@ decode(void)
 			if (enc[i] == '<') {
 				br = read_backref(enc, i);
 				exp = expand_backref(dec, j, br);
-				free(br);
+				backref_free(br);
 				exp_sz = strlen(exp);
 				memcpy(&dec[j], exp, exp_sz);
 				free(exp);

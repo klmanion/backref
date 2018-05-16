@@ -1,7 +1,7 @@
 ## configure.ac
 
 AC_PREREQ([2.69])
-AC_INIT([backref], [1.0.1], [klmanion@gmail.com])
+AC_INIT([backref], [1.0.2], [klmanion@gmail.com])
 
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_AUX_DIR([config])
