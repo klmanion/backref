@@ -6,8 +6,10 @@
 .Nm backref
 .Nd compress a file by replacing repeated characters with a back reference
 .Sh SYNOPSIS
-.Nm
+.Sy backref
 .Op Fl e | Fl d
+.Op Fl m Ar min_width
+.YS
 .Sh DESCRIPTION
 .Nm
 can preform and undo the operation on a string,
@@ -17,11 +19,21 @@ which is how many indices prior to the last printing character the pattern start
 and the length is an integer n.
 .Sh OPTIONS
 .Bl -hang
-.It Sy Fl e ,
+.It Sy Fl e , Fl Fl encode ,
 Encode the string provided by stdin with back-references.
-.It Sy Fl d ,
+.It Sy Fl d , Fl Fl decode ,
 Decode the string provided by stdin,
 which has been encoded with back-references by this program.
+.It Sy Fl m , Fl Fl min-width ,
+Specify the minimum width each back-reference must be.
+(The default is four.)
+.It Sy Fl h , Fl Fl help ,
+Print out abreviated usage information.
+.It Sy Fl v , Fl Fl verbose ,
+Increment the verbosity level,
+i.e. \-vv has a different effect than \-v.
+.It Sy Fl V, Fl Fl version ,
+Print out the version information.
 .El
 .Sh EXAMPLES
 Simplest encoding of a file;
@@ -41,4 +53,4 @@ on 12 May 2018.
 .Sh CONTACT
 .Aq klmanion@gmail.com .
 .Sh VERSION
-version 0.1.1 \(em 12 May 2018.
+version 1.0.1 \(em 16 May 2018.
