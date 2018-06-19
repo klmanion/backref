@@ -7,3 +7,4 @@ EXTRA_DIST = \
 		autogen.sh \
 		share/man/man1/backref.1 \
 		$(NULL)
+
