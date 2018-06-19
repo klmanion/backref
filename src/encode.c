@@ -36,7 +36,7 @@ encode(
 		{
 			char *pattern,*match;
 			ptrdiff_t p;
-			size_t n,offset;
+			size_t n;
 			backref_t *br = NULL;
 
 			pattern = &in[i];
