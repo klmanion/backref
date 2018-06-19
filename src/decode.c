@@ -11,7 +11,6 @@
 #include <stddef.h>
 #include <err.h>
 #include <math.h>
-#define NDEBUG /* turn off assertions */
 #include <assert.h>
 #include "defs.h"
 
