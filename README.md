@@ -16,6 +16,7 @@ the string: `xxxxx`, could be encoded as: `x<0,4>`.
 Run the following commands to automake and install backref and the man page:
 ```bash
 ./autogen.sh
+./configure
 make
 make install
 ```
